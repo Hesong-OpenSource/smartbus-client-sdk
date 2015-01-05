@@ -146,7 +146,7 @@ int SmartBusIpcCli_RemoteInvokeFlow(int server_unitid,int processindex,const cha
  * @param param 消息数据
  * @return 返回值：> 0 invoke_id，调用ID。< 0 表示错误。
  */
-int SmartBusNetCli_SendNotify(int server_unitid,int processindex,const char * projectid,const char * title,int mode, int expires,const char * param);
+int SmartBusIpcCli_SendNotify(int server_unitid,int processindex,const char * projectid,const char * title,int mode, int expires,const char * param);
 
 
 #ifdef __cplusplus
