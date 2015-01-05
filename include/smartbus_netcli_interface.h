@@ -25,7 +25,7 @@ extern "C" {
 ///////////////////////////////////////////////////////////////////
 #ifdef WIN32
 #ifndef CDECL
-#define CDECL	__cdecl
+#define CDECL   __cdecl
 #endif
 #else
 #define CDECL
@@ -71,9 +71,9 @@ SMARTBUS_NET_CLI_API void CDECL SmartBusNetCli_Release();
  * @param arg 自定义数据
  */
 SMARTBUS_NET_CLI_API void CDECL SmartBusNetCli_SetCallBackFn(smartbus_cli_connection_cb client_conn_cb,
-		smartbus_cli_recvdata_cb recv_cb,smartbus_cli_disconnect_cb disconnect_cb,
-		smartbus_invokeflow_ret_cb invokeflow_ret_cb,smartbus_global_connect_cb global_connect_cb,
-		void * arg);
+        smartbus_cli_recvdata_cb recv_cb,smartbus_cli_disconnect_cb disconnect_cb,
+        smartbus_invokeflow_ret_cb invokeflow_ret_cb,smartbus_global_connect_cb global_connect_cb,
+        void * arg);
 
 
 /**

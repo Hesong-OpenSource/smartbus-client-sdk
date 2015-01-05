@@ -57,9 +57,9 @@ void SmartBusIpcCli_Release();
  * @param arg 自定义数据
  */
 void SmartBusIpcCli_SetCallBackFn(smartbus_cli_connection_cb client_conn_cb,
-		smartbus_cli_recvdata_cb recv_cb,smartbus_cli_disconnect_cb disconnect_cb,
-		smartbus_invokeflow_ret_cb invokeflow_ret_cb,smartbus_global_connect_cb global_connect_cb,
-		void * arg);
+        smartbus_cli_recvdata_cb recv_cb,smartbus_cli_disconnect_cb disconnect_cb,
+        smartbus_invokeflow_ret_cb invokeflow_ret_cb,smartbus_global_connect_cb global_connect_cb,
+        void * arg);
 
 
 /**
@@ -132,6 +132,22 @@ int SmartBusIpcCli_SendPing(int dst_unitid,int dst_clientid,int dst_clienttype,c
  * @return <0 表示执行错误。> 0 invoke_id，调用ID，用于流程结果返回匹配用途。
  */
 int SmartBusIpcCli_RemoteInvokeFlow(int server_unitid,int processindex,const char * projectid,const char * flowid,int mode, int timeout,const char * in_valuelist);
+
+
+/**
+ * @brief 发送通知消息
+ * 
+ * @param server_unitid 目标IPSC服务器smartbus单元ID
+ * @param processindex IPSC进程ID
+ * @param projectid 流程项目ID
+ * @param title 通知的标示
+ * @param mode 调用模式
+ * @param expires 消息有效期。单位ms
+ * @param param 消息数据
+ * @return 返回值：> 0 invoke_id，调用ID。< 0 表示错误。
+ */
+int SmartBusNetCli_SendNotify(int server_unitid,int processindex,const char * projectid,const char * title,int mode, int expires,const char * param);
+
 
 #ifdef __cplusplus
 }
