@@ -123,7 +123,7 @@ int SmartBusIpcCli_SendPing(int dst_unitid,int dst_clientid,int dst_clienttype,c
  * @brief 调用流程
  * 
  * @param server_unitid 目标IPSC服务器smartbus单元ID
- * @param processindex IPSC进程ID
+ * @param processindex IPSC进程ID，同时也是该IPSC进程的 smartbus client-id
  * @param projectid 流程项目ID
  * @param flowid 流程ID
  * @param mode 调用模式：0 有流程返回、1 无流程返回
@@ -138,7 +138,7 @@ int SmartBusIpcCli_RemoteInvokeFlow(int server_unitid,int processindex,const cha
  * @brief 发送通知消息
  * 
  * @param server_unitid 目标IPSC服务器smartbus单元ID
- * @param processindex IPSC进程ID
+ * @param processindex IPSC进程ID，同时也是该IPSC进程的 smartbus client-id
  * @param projectid 流程项目ID
  * @param title 通知的标示
  * @param mode 调用模式
