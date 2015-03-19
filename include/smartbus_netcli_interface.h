@@ -34,13 +34,14 @@ extern "C" {
 /**
  * @brief 设置Trace函数
  */
-SMARTBUS_NET_CLI_API void CDECL SmartBusNetCli_SetTrace(PTraceEx traceex,PTraceEx traceerr);
+SMARTBUS_NET_CLI_API void CDECL SmartBusNetCli_SetTrace(PTraceEx traceex,
+		PTraceEx traceerr);
 
 /**
  * @brief 设置Trace函数
  */
-SMARTBUS_NET_CLI_API void CDECL SmartBusNetCli_SetTraceStr(PTraceStr traceex,PTraceStr traceerr);
-
+SMARTBUS_NET_CLI_API void CDECL SmartBusNetCli_SetTraceStr(PTraceStr traceex,
+		PTraceStr traceerr);
 
 /**
  * @brief 初始化
@@ -52,13 +53,11 @@ SMARTBUS_NET_CLI_API void CDECL SmartBusNetCli_SetTraceStr(PTraceStr traceex,PTr
  */
 SMARTBUS_NET_CLI_API int CDECL SmartBusNetCli_Init(unsigned char unitid);
 
-
 // 释放
 /**
  * @brief 释放
  */
 SMARTBUS_NET_CLI_API void CDECL SmartBusNetCli_Release();
-
 
 /**
  * @brief 设置回调函数
@@ -70,19 +69,19 @@ SMARTBUS_NET_CLI_API void CDECL SmartBusNetCli_Release();
  * @param global_connect_cb 全局连接事件回调
  * @param arg 自定义数据
  */
-SMARTBUS_NET_CLI_API void CDECL SmartBusNetCli_SetCallBackFn(smartbus_cli_connection_cb client_conn_cb,
-        smartbus_cli_recvdata_cb recv_cb,smartbus_cli_disconnect_cb disconnect_cb,
-        smartbus_invokeflow_ret_cb invokeflow_ret_cb,smartbus_global_connect_cb global_connect_cb,
-        void * arg);
-
+SMARTBUS_NET_CLI_API void CDECL SmartBusNetCli_SetCallBackFn(
+		smartbus_cli_connection_cb client_conn_cb,
+		smartbus_cli_recvdata_cb recv_cb,
+		smartbus_cli_disconnect_cb disconnect_cb,
+		smartbus_invokeflow_ret_cb invokeflow_ret_cb,
+		smartbus_global_connect_cb global_connect_cb, void * arg);
 
 /**
  * @brief 设置回调函数自定义数据
  * 
  * @param arg 自定义数据
  */
-SMARTBUS_NET_CLI_API void CDECL  SmartBusNetCli_SetCallBackFnArg(void * arg);
-
+SMARTBUS_NET_CLI_API void CDECL SmartBusNetCli_SetCallBackFnArg(void * arg);
 
 /**
  * @brief 设置回调函数
@@ -90,8 +89,8 @@ SMARTBUS_NET_CLI_API void CDECL  SmartBusNetCli_SetCallBackFnArg(void * arg);
  * @param callback_name 待设定的回调函数名称
  * @param callbackfn 回调函数指针
  */
-SMARTBUS_NET_CLI_API void CDECL  SmartBusNetCli_SetCallBackFnEx(const char * callback_name,void * callbackfn);
-
+SMARTBUS_NET_CLI_API void CDECL SmartBusNetCli_SetCallBackFnEx(
+		const char * callback_name, void * callbackfn);
 
 /**
  * @brief 创建连接
@@ -108,8 +107,11 @@ SMARTBUS_NET_CLI_API void CDECL  SmartBusNetCli_SetCallBackFnEx(const char * cal
  * @param add_info 附加信息
  * @return 连接结果。1：成功。其它：见错误码
  */
-SMARTBUS_NET_CLI_API int CDECL SmartBusNetCli_CreateConnect(unsigned char local_clientid,int local_clienttype,const char * masterip,unsigned short masterport,const char * slaverip,unsigned short slaverport,const char * author_username,const char * author_pwd,const char * add_info);
-
+SMARTBUS_NET_CLI_API int CDECL SmartBusNetCli_CreateConnect(
+		unsigned char local_clientid, int local_clienttype,
+		const char * masterip, unsigned short masterport, const char * slaverip,
+		unsigned short slaverport, const char * author_username,
+		const char * author_pwd, const char * add_info);
 
 /**
  * @brief 发送数据
@@ -124,8 +126,10 @@ SMARTBUS_NET_CLI_API int CDECL SmartBusNetCli_CreateConnect(unsigned char local_
  * @param size 要发送的数据的字节长度
  * @return 连接结果。0 表示成功、 < 0 表示错误。其它：见错误码
  */
-SMARTBUS_NET_CLI_API int CDECL SmartBusNetCli_SendData(unsigned char local_clientid,unsigned char cmd,unsigned char cmdtype,int dst_unitid,int dst_clientid,int dst_clienttype,const void * data,int size);
-
+SMARTBUS_NET_CLI_API int CDECL SmartBusNetCli_SendData(
+		unsigned char local_clientid, unsigned char cmd, unsigned char cmdtype,
+		int dst_unitid, int dst_clientid, int dst_clienttype, const void * data,
+		int size);
 
 /**
  * @brief 发送PING命令
@@ -138,8 +142,9 @@ SMARTBUS_NET_CLI_API int CDECL SmartBusNetCli_SendData(unsigned char local_clien
  * @param size 要发送的数据的字节长度
  * @return 结果。0 表示成功、 < 0 表示错误。其它：见错误码
  */
-SMARTBUS_NET_CLI_API int CDECL SmartBusNetCli_SendPing(unsigned char local_clientid,int dst_unitid,int dst_clientid,int dst_clienttype,const void * data,int size);
-
+SMARTBUS_NET_CLI_API int CDECL SmartBusNetCli_SendPing(
+		unsigned char local_clientid, int dst_unitid, int dst_clientid,
+		int dst_clienttype, const void * data, int size);
 
 /**
  * @brief 调用流程
@@ -154,8 +159,10 @@ SMARTBUS_NET_CLI_API int CDECL SmartBusNetCli_SendPing(unsigned char local_clien
  * @param in_valuelist 流程输入参数里表。简单数据类型JSON数组（子流程开始节点的传人参数自动变换为list类型数据。）（对应的字符串内容最大长度不超过32K字节）
  * @return <0 表示执行错误。> 0 invoke_id，调用ID，用于流程结果返回匹配用途。
  */
-SMARTBUS_NET_CLI_API int CDECL SmartBusNetCli_RemoteInvokeFlow(unsigned char local_clientid,int server_unitid,int ipscindex,const char * projectid,const char * flowid,int mode, int timeout,const char * in_valuelist);
-
+SMARTBUS_NET_CLI_API int CDECL SmartBusNetCli_RemoteInvokeFlow(
+		unsigned char local_clientid, int server_unitid, int ipscindex,
+		const char * projectid, const char * flowid, int mode, int timeout,
+		const char * in_valuelist);
 
 /**
  * @brief 发送通知消息
@@ -170,12 +177,13 @@ SMARTBUS_NET_CLI_API int CDECL SmartBusNetCli_RemoteInvokeFlow(unsigned char loc
  * @param param 消息数据
  * @return 返回值：> 0 invoke_id，调用ID。< 0 表示错误。
  */
-SMARTBUS_NET_CLI_API int CDECL SmartBusNetCli_SendNotify(unsigned char local_clientid,int server_unitid,int processindex,const char * projectid,const char * title,int mode, int expires,const char * param);
+SMARTBUS_NET_CLI_API int CDECL SmartBusNetCli_SendNotify(
+		unsigned char local_clientid, int server_unitid, int processindex,
+		const char * projectid, const char * title, int mode, int expires,
+		const char * param);
 
 #ifdef __cplusplus
 }
 #endif
-
-
 
 #endif
