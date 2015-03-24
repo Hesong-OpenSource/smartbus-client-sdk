@@ -2,7 +2,6 @@
  * @file smartbus.h
  */
 
-
 #if !defined(_SMARTBUS_H_INCLUDED_)
 #define _SMARTBUS_H_INCLUDED_
 
@@ -19,7 +18,6 @@
 #define MAX_SMARTBUS_NODE_CLI_NUM		16	///< 最大节点内的客户端数
 #define MAX_SMARTBUS_NODE_IPCCLI_NUM	MAX_SMARTBUS_NODE_CLI_NUM	///< 最大节点内的客户端数
 
-
 #define SMARTBUS_CMDTYPE_INTERNAL 		0
 #define SMARTBUS_CMDTYPE_SYSTEM		 	1
 #define SMARTBUS_CMDTYPE_FILE		 	2	///< 文件
@@ -29,7 +27,6 @@
 
 #define SMARTBUS_SYSCMD_PING_ACK	 	8	///< Ping应答包的cmdtype
 
-
 // 节点类型
 #define SMARTBUS_NODECLI_TYPE_NULL		0
 #define SMARTBUS_NODECLI_TYPE_NODE		1
@@ -37,8 +34,6 @@
 #define SMARTBUS_NODECLI_TYPE_MONITOR	3
 #define SMARTBUS_NODECLI_TYPE_AGENT		4
 #define SMARTBUS_NODECLI_TYPE_DB		5
-
-
 
 /* SmartBus 错误码定义                 */
 #define SMARTBUS_ERR_OK						 0
@@ -72,7 +67,6 @@
 
 #define MAX_SMARTBUS_IPADDR_SIZE			64
 
-
 enum CONNECTED_STATUS {
 	CONNECTED_STATUS_INIT = 0,
 	CONNECTED_STATUS_CONNECTING = 1,
@@ -89,28 +83,26 @@ enum CONNECTED_STATUS {
 /** 
  * 数据包头结构定义
  */
-typedef struct
-{
-	unsigned short	head_flag;	///< 头标识	: 0x5b15
+typedef struct {
+	unsigned short head_flag;	///< 头标识	: 0x5b15
 
-	unsigned char	cmd;	///< 命令
-	unsigned char	cmdtype; ///< 命令类型
+	unsigned char cmd;	///< 命令
+	unsigned char cmdtype; ///< 命令类型
 
-	char	src_unit_client_type; ///< 发送者类型
-	char	src_unit_id; ///< 发送者单元ID
-	char	src_unit_client_id; ///< 发送者客户端ID
+	char src_unit_client_type; ///< 发送者类型
+	char src_unit_id; ///< 发送者单元ID
+	char src_unit_client_id; ///< 发送者客户端ID
 
-	char	dest_unit_client_type; ///< 接收者类型
-	char	dest_unit_id; ///< 接收者单元ID
-	char	dest_unit_client_id; ///< 接收者客户端ID
+	char dest_unit_client_type; ///< 接收者类型
+	char dest_unit_id; ///< 接收者单元ID
+	char dest_unit_client_id; ///< 接收者客户端ID
 
-	char	reserved[2]; ///< 保留
+	char reserved[2]; ///< 保留
 
-	long	packet_size;	///< 包大小. c#里要定义成int32
-	long	datalen;		///< 数据部分长度. c#里要定义成int32
-}SMARTBUS_PACKET_HEAD;
+	long packet_size;	///< 包大小. c#里要定义成int32
+	long datalen;		///< 数据部分长度. c#里要定义成int32
+} SMARTBUS_PACKET_HEAD;
 #pragma pack(pop)//恢复对齐状态
-
 
 #ifdef WIN32
 #ifndef WINAPI
@@ -119,7 +111,6 @@ typedef struct
 #else
 #define WINAPI
 #endif
-
 
 /**
  * @brief 客户端连接成功回调函数类型
@@ -130,7 +121,8 @@ typedef struct
  * @param accesspoint_unitid 连接点的UnitID
  * @param ack 连接注册结果： 0 建立连接成功、< 0 连接失败
  */
-typedef void (WINAPI *smartbus_cli_connection_cb)(void * arg,unsigned char local_clientid, int accesspoint_unitid,int ack);
+typedef void (WINAPI *smartbus_cli_connection_cb)(void * arg,
+		unsigned char local_clientid, int accesspoint_unitid, int ack);
 
 /**
  * @brief 客户端连接断开回调函数类型
@@ -138,8 +130,8 @@ typedef void (WINAPI *smartbus_cli_connection_cb)(void * arg,unsigned char local
  * 
  * @param local_clientid 连接失败的本地clientid
  */
-typedef void (WINAPI *smartbus_cli_disconnect_cb)(void * arg,unsigned char local_clientid);
-
+typedef void (WINAPI *smartbus_cli_disconnect_cb)(void * arg,
+		unsigned char local_clientid);
 
 /**
  * @brief 接收数据回调函数类型
@@ -151,8 +143,9 @@ typedef void (WINAPI *smartbus_cli_disconnect_cb)(void * arg,unsigned char local
  * @param data 数据包体
  * @param size 包体字节长度
  */
-typedef void (WINAPI *smartbus_cli_recvdata_cb)(void * arg,unsigned char local_clientid, SMARTBUS_PACKET_HEAD * head,void * data,int size);
-
+typedef void (WINAPI *smartbus_cli_recvdata_cb)(void * arg,
+		unsigned char local_clientid, SMARTBUS_PACKET_HEAD * head, void * data,
+		int size);
 
 /**
  * @brief 全局节点客户端连接、断开通知回调函数类型
@@ -165,8 +158,8 @@ typedef void (WINAPI *smartbus_cli_recvdata_cb)(void * arg,unsigned char local_c
  * @param status 连接状态： 0 断开连接、1 新建连接、2 已有的连接
  * @param add_info 连接附加信息
  */
-typedef void (WINAPI *smartbus_global_connect_cb)(void * arg,char unitid,char clientid,char clienttype,char status,const char * add_info);
-
+typedef void (WINAPI *smartbus_global_connect_cb)(void * arg, char unitid,
+		char clientid, char clienttype, char status, const char * add_info);
 
 /**
  * @brief 调用流程是否成功回调函数类型
@@ -182,8 +175,9 @@ typedef void (WINAPI *smartbus_global_connect_cb)(void * arg,char unitid,char cl
  * 
  * @remark SmartBusIpcCli_RemoteInvokeFlow()、SmartBusNetCli_RemoteInvokeFlow() 直接返回失败的，不再触发smartbus_invokeflow_ack_cb回调。
  */
-typedef void (WINAPI *smartbus_invokeflow_ack_cb)(void * arg,unsigned char local_clientid,SMARTBUS_PACKET_HEAD * head,const char * projectid,int invoke_id,int ack, const char * msg);
-
+typedef void (WINAPI *smartbus_invokeflow_ack_cb)(void * arg,
+		unsigned char local_clientid, SMARTBUS_PACKET_HEAD * head,
+		const char * projectid, int invoke_id, int ack, const char * msg);
 
 /**
  * @brief 调用流程结果返回回调函数类型
@@ -197,13 +191,15 @@ typedef void (WINAPI *smartbus_invokeflow_ack_cb)(void * arg,unsigned char local
  * @param ret 返回值。1表示正常返回，-25表示超时，小于1表示错误,其它请见错误码
  * @param param 结果参数串,采用JSON数组格式
  */
-typedef void (WINAPI *smartbus_invokeflow_ret_cb)(void * arg,unsigned char local_clientid,SMARTBUS_PACKET_HEAD* head,const char* projectid,int invoke_id,int ret, const char * param);
+typedef void (WINAPI *smartbus_invokeflow_ret_cb)(void * arg,
+		unsigned char local_clientid, SMARTBUS_PACKET_HEAD* head,
+		const char* projectid, int invoke_id, int ret, const char * param);
 
-typedef void (WINAPI *smartbus_unitdata_cb)(unsigned char cmd,unsigned char	cmdtype,const unsigned char* data,int size);
+typedef void (WINAPI *smartbus_unitdata_cb)(unsigned char cmd,
+		unsigned char cmdtype, const unsigned char* data, int size);
 
-typedef void (WINAPI *PTraceEx)(const char * lpszMessage,...);
+typedef void (WINAPI *PTraceEx)(const char * lpszMessage, ...);
 
 typedef void (WINAPI *PTraceStr)(const char * lpszMessage);
-
 
 #endif
